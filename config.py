@@ -1,24 +1,17 @@
-# config.py
-
-# Tamanho da janela
 LARGURA_TELA = 900
 ALTURA_TELA = 700
 
-# Tamanho do tabuleiro
 LINHAS = 10
 COLUNAS = 10
 TAMANHO_CELULA = 50
 
-# Posicao do tabuleiro na tela
 X_TABULEIRO = 200
 Y_TABULEIRO = 120
 
-# Regras do jogo
 TOTAL_NAVIOS = 7
 TAMANHO_NAVIO = 3
 TEMPO_TRANSICAO_MS = 3000
 
-# Cores
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
 AZUL = (173, 216, 230)

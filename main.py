@@ -33,7 +33,6 @@ def main():
     jogador_atual = 1
     fase = "posicionamento"
 
-    # Tela intermediaria => esconde o tabuleiro do outro jogador na troca de turno.
     mostrar_transicao = False
     tempo_transicao = 0
     proximo_jogador = 1
@@ -53,7 +52,7 @@ def main():
                 rodando = False
 
             if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
-                # Fase 1: cada jogador posiciona seus proprios navios.
+
                 if not mostrar_transicao and fase == "posicionamento":
                     celula = obter_celula_mouse(evento.pos)
 
@@ -84,7 +83,6 @@ def main():
                                     proximo_jogador = 1
                                     mensagem = "Fim do posicionamento. Jogador 1 começa atacando."
 
-                # Fase 2: o jogador ataca uma casa do tabuleiro adversario.
                 elif not mostrar_transicao and fase == "combate":
                     celula = obter_celula_mouse(evento.pos)
 
@@ -96,7 +94,6 @@ def main():
                         else:
                             tabuleiro_inimigo = tabuleiro_jogador1
 
-                        # A funcao já altera o tabuleiro e informa se houve acerto, água ou ataque repetido.
                         resultado = atacar_celula(tabuleiro_inimigo, linha, coluna)
 
                         if resultado == "repetido":
@@ -119,7 +116,6 @@ def main():
                             tempo_transicao = pygame.time.get_ticks()
                             mensagem = f"Jogador {jogador_atual} acertou a agua. Passe a vez para o Jogador {proximo_jogador}."
 
-        # O jogador so muda de fato depois de 3 segundos mostrando a mensagem de transicao.
         if mostrar_transicao and pygame.time.get_ticks() - tempo_transicao > TEMPO_TRANSICAO_MS:
             mostrar_transicao = False
             jogador_atual = proximo_jogador
@@ -162,13 +158,13 @@ def main():
                 desenhar_texto(tela, mensagem, 28, 120, 600, AMARELO)
 
         elif fase == "fim":
-            desenhar_texto(tela, f"Jogador {vencedor} venceu!", 60, 250, 250)
-            desenhar_texto(tela, "Feche a janela para encerrar o jogo.", 35, 210, 330)
-
             if vencedor == 1:
                 desenhar_tabuleiro(tela, tabuleiro_jogador2, mostrar_navios=True)
             else:
                 desenhar_tabuleiro(tela, tabuleiro_jogador1, mostrar_navios=True)
+
+            desenhar_texto(tela, f"Jogador {vencedor} venceu!", 60, 250, 250)
+            desenhar_texto(tela, "Feche a janela para encerrar o jogo.", 35, 210, 330)
 
         pygame.display.flip()
 
