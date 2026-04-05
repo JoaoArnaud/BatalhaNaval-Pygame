@@ -1,7 +1,7 @@
 import pygame
 from config import (
     LARGURA_TELA, ALTURA_TELA, BRANCO, PRETO, AMARELO,
-    TOTAL_NAVIOS, TAMANHO_NAVIO
+    TOTAL_NAVIOS, TAMANHO_NAVIO, TEMPO_TRANSICAO_MS
 )
 from tabuleiro import (
     criar_tabuleiro,
@@ -53,6 +53,7 @@ def main():
                 rodando = False
 
             if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
+                # Fase 1: cada jogador posiciona seus proprios navios.
                 if not mostrar_transicao and fase == "posicionamento":
                     celula = obter_celula_mouse(evento.pos)
 
@@ -83,6 +84,7 @@ def main():
                                     proximo_jogador = 1
                                     mensagem = "Fim do posicionamento. Jogador 1 começa atacando."
 
+                # Fase 2: o jogador ataca uma casa do tabuleiro adversario.
                 elif not mostrar_transicao and fase == "combate":
                     celula = obter_celula_mouse(evento.pos)
 
@@ -118,7 +120,7 @@ def main():
                             mensagem = f"Jogador {jogador_atual} acertou a agua. Passe a vez para o Jogador {proximo_jogador}."
 
         # O jogador so muda de fato depois de 3 segundos mostrando a mensagem de transicao.
-        if mostrar_transicao and pygame.time.get_ticks() - tempo_transicao > 3000:
+        if mostrar_transicao and pygame.time.get_ticks() - tempo_transicao > TEMPO_TRANSICAO_MS:
             mostrar_transicao = False
             jogador_atual = proximo_jogador
 
