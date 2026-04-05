@@ -6,6 +6,11 @@ from config import (
 )
 
 def criar_tabuleiro():
+
+    '''
+        Retorna uma matriz representando o tabuleiro, onde cada célula é inicializada com 0 (vazia).
+    '''
+    
     tabuleiro = []
 
     for linha in range(LINHAS):
@@ -25,6 +30,7 @@ def desenhar_tabuleiro(tela, tabuleiro, mostrar_navios=True):
 
             retangulo = pygame.Rect(x, y, TAMANHO_CELULA, TAMANHO_CELULA)
 
+            # 0 = vazio, 1 = navio intacto, 2 = agua atingida, 3 = navio destruido.
             valor = tabuleiro[linha][coluna]
 
             cor = AZUL
@@ -79,6 +85,7 @@ def contar_navios(tabuleiro):
             if tabuleiro[linha][coluna] == 1:
                 quantidade += 1
 
+    # A funcao conta partes ocupadas; divide por 3 porque cada navio tem tamanho fixo.
     return quantidade // 3
 
 
@@ -87,12 +94,14 @@ def encontrar_navio_completo(tabuleiro, linha, coluna):
         return []
 
     inicio_coluna = coluna
+    # Como os navios sao horizontais, primeiro voltamos ate a primeira parte continua do navio.
     while inicio_coluna > 0 and tabuleiro[linha][inicio_coluna - 1] == 1:
         inicio_coluna -= 1
 
     partes_navio = []
     coluna_atual = inicio_coluna
 
+    # Depois percorremos para a direita para recuperar todas as partes desse mesmo navio.
     while coluna_atual < COLUNAS and tabuleiro[linha][coluna_atual] == 1:
         partes_navio.append((linha, coluna_atual))
         coluna_atual += 1
@@ -109,6 +118,7 @@ def atacar_celula(tabuleiro, linha, coluna):
     if valor == 1:
         partes_navio = encontrar_navio_completo(tabuleiro, linha, coluna)
 
+        # Nesta versao do jogo, acertar uma parte afunda o navio inteiro de uma vez.
         for parte_linha, parte_coluna in partes_navio:
             tabuleiro[parte_linha][parte_coluna] = 3
 
@@ -127,6 +137,7 @@ def contar_navios_destruidos(tabuleiro):
             if tabuleiro[linha][coluna] == 3:
                 quantidade += 1
 
+    # Um navio destruido tambem ocupa 3 casas, por isso a mesma divisao funciona aqui.
     return quantidade // 3
 
 

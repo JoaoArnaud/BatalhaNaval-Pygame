@@ -33,6 +33,7 @@ def main():
     jogador_atual = 1
     fase = "posicionamento"
 
+    # Tela intermediaria => esconde o tabuleiro do outro jogador na troca de turno.
     mostrar_transicao = False
     tempo_transicao = 0
     proximo_jogador = 1
@@ -93,6 +94,7 @@ def main():
                         else:
                             tabuleiro_inimigo = tabuleiro_jogador1
 
+                        # A funcao já altera o tabuleiro e informa se houve acerto, água ou ataque repetido.
                         resultado = atacar_celula(tabuleiro_inimigo, linha, coluna)
 
                         if resultado == "repetido":
@@ -115,6 +117,7 @@ def main():
                             tempo_transicao = pygame.time.get_ticks()
                             mensagem = f"Jogador {jogador_atual} acertou a agua. Passe a vez para o Jogador {proximo_jogador}."
 
+        # O jogador so muda de fato depois de 3 segundos mostrando a mensagem de transicao.
         if mostrar_transicao and pygame.time.get_ticks() - tempo_transicao > 3000:
             mostrar_transicao = False
             jogador_atual = proximo_jogador
