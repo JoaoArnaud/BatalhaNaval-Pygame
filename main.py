@@ -162,13 +162,13 @@ def main():
                 desenhar_texto(tela, mensagem, 28, 120, 600, AMARELO)
 
         elif fase == "fim":
-            desenhar_texto(tela, f"Jogador {vencedor} venceu!", 60, 250, 250)
-            desenhar_texto(tela, "Feche a janela para encerrar o jogo.", 35, 210, 330)
-
             if vencedor == 1:
                 desenhar_tabuleiro(tela, tabuleiro_jogador2, mostrar_navios=True)
             else:
                 desenhar_tabuleiro(tela, tabuleiro_jogador1, mostrar_navios=True)
+
+            desenhar_texto(tela, f"Jogador {vencedor} venceu!", 60, 250, 250)
+            desenhar_texto(tela, "Feche a janela para encerrar o jogo.", 35, 210, 330)
 
         pygame.display.flip()
 
